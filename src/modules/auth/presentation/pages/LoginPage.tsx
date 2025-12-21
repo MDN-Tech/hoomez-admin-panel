@@ -43,7 +43,7 @@ export default function LoginPage() {
   return (
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
       <div className="flex flex-col items-center justify-center px-8 py-12 lg:px-12">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-8 sm:w-[400px]">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-8 sm:w-100">
           {/* Logo & Header */}
           <div className="flex flex-col items-center space-y-3 text-center">
             <div className="bg-primary text-primary-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-lg">
