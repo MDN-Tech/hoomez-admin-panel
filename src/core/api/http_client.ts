@@ -5,6 +5,7 @@ import axios, {
   type AxiosResponse,
 } from "axios";
 import type { AuthLocalDataSource } from "@/modules/auth/infrastructure/data_sources/auth_local_data_source";
+import { endpoints } from "./endpoints";
 
 export class HttpClient {
   private instance: AxiosInstance;
@@ -44,6 +45,12 @@ export class HttpClient {
   }
 
   private initializeResponseInterceptor() {
+    const excludedEndpoints = [
+      endpoints.login,
+      endpoints.logout,
+      endpoints.refreshToken,
+    ];
+
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error) => {
@@ -51,7 +58,11 @@ export class HttpClient {
           _retry?: boolean;
         };
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (
+          error.response?.status === 401 &&
+          !originalRequest._retry &&
+          !excludedEndpoints.includes(originalRequest.url || "")
+        ) {
           if (this.isRefreshing) {
             return new Promise((resolve, reject) => {
               this.failedQueue.push({ resolve, reject });
@@ -76,7 +87,7 @@ export class HttpClient {
 
             // You'll need to inject the remote data source or make the refresh call directly
             const response = await axios.post<{ accessToken: string }>(
-              "/auth/refresh-token",
+              endpoints.refreshToken,
               { refreshToken },
             );
 
