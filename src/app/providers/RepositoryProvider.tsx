@@ -1,7 +1,7 @@
 import {
   repositories,
   RepositoryContext,
-} from "../contexts/repository.context";
+} from "../contexts/repository_context";
 
 export const RepositoryProvider = ({
   children,
