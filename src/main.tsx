@@ -4,6 +4,7 @@ import App from "./app/App";
 import { RepositoryProvider } from "./app/providers/RepositoryProvider";
 import { QueryProvider } from "./app/providers/QueryProvider";
 import { Toaster } from "sonner";
+import './index.css';
 
 const root = document.getElementById("root");
 
