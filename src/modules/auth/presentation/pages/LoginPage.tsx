@@ -13,14 +13,14 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { mutate: login, isPending } = useLogin();
   const [formData, setFormData] = useState<LoginParams>({
-    username: "",
+    email: "",
     password: "",
   });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.password) {
+    if (!formData.email || !formData.password) {
       toast.error("Please fill in all fields");
       return;
     }
@@ -33,8 +33,9 @@ export default function LoginPage() {
         navigate("/");
       },
       onError: (error) => {
+        const { message, status } = getError(error);
         toast.error("Login failed", {
-          description: getError(error).message,
+          description: status == 401 ? "Invalid Credentials" : message,
         });
       },
     });
@@ -57,24 +58,24 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
-              {/* Username Field */}
+              {/* Email Field */}
               <div className="space-y-2">
                 <label
-                  htmlFor="username"
+                  htmlFor="email"
                   className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Username
+                  Email
                 </label>
                 <div className="relative">
                   <User className="text-muted-foreground absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2" />
                   <Input
-                    id="username"
-                    type="text"
-                    placeholder="Enter your username"
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
                     className="bg-muted/30 focus:bg-background h-11 pl-10 transition-colors"
-                    value={formData.username}
+                    value={formData.email}
                     onChange={(e) =>
-                      setFormData({ ...formData, username: e.target.value })
+                      setFormData({ ...formData, email: e.target.value })
                     }
                     disabled={isPending}
                     required
