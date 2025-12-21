@@ -10,10 +10,3 @@ export interface TokenRefreshResponse {
   accessToken: string;
   refreshToken: string;
 }
-
-export type ApiError = Error | { message: string; status?: number };
-
-export interface FailedRequest {
-  resolve: (token: string) => void;
-  reject: (error: ApiError) => void;
-}
