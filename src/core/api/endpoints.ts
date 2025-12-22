@@ -1,5 +1,10 @@
 export const endpoints = {
-  login: "/auth/login",
-  logout: "/auth/logout",
-  refreshToken: "/auth/refresh-token",
+  auth: {
+    login: "/auth/login",
+    logout: "/auth/logout",
+    refreshToken: "/auth/refresh-token",
+  },
+  dashboard: {
+    getFullData: "/dashboard",
+  },
 };
