@@ -19,6 +19,10 @@ export class AuthRemoteDataSource {
   }
 
   async logout() {
-    this.httpClient.post(endpoints.auth.logout);
+    try {
+      await this.httpClient.get(endpoints.auth.logout);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

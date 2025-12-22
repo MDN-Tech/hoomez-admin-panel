@@ -26,9 +26,9 @@ export class AuthRepository {
   }
 
   async logout() {
-    this.localDataSource.clearTokens();
+    await this.remoteDataSource.logout();
     this.localDataSource.clearUser();
-    this.remoteDataSource.logout();
+    this.localDataSource.clearTokens();
   }
 
   getCurrentUser(): User | null {
