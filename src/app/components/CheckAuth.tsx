@@ -1,8 +1,8 @@
-import { useCurrentUser } from "@/modules/auth/presentation/hooks/useCurrentUser";
+import { useGetCurrentUser } from "@/modules/auth/presentation/hooks/useGetCurrentUser";
 import { Navigate, Outlet } from "react-router";
 
 const CheckAuth = ({ allowedRoles }: { allowedRoles: string[] }) => {
-  const { user } = useCurrentUser();
+  const { user } = useGetCurrentUser();
 
   if (!user) {
     return <Navigate to="/" replace />; // Redirect to login if not authenticated
