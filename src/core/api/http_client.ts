@@ -32,10 +32,16 @@ export class HttpClient {
   }
 
   private initializeRequestInterceptor() {
+    const excludedEndpoints = [endpoints.login];
+
     this.instance.interceptors.request.use(
       async (config) => {
         const token = this.authLocalDataSource.getAccessToken();
-        if (token && config.headers) {
+        if (
+          token &&
+          config.headers &&
+          !excludedEndpoints.includes(config.url || "")
+        ) {
           config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
