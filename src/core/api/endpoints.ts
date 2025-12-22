@@ -7,4 +7,9 @@ export const endpoints = {
   dashboard: {
     getFullData: "/dashboard",
   },
+  products: {
+    categories: "/products/categories",
+    categoryTree: "/products/categories/tree",
+    attributes: (categoryId: string) => `/products/attributes/${categoryId}`,
+  },
 };
