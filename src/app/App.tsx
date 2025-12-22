@@ -9,6 +9,7 @@ import {
 } from "./components/ErrorPages";
 import CheckAuth from "./components/CheckAuth";
 import DashboardPage from "@/modules/dashboard/presentation/pages/DashboardPage";
+import AdminLayout from "./components/AdminLayout";
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
       <Route index element={<LoginPage />} />
 
       <Route path="/admin" element={<CheckAuth allowedRoles={["admin"]} />}>
-        <Route index element={<DashboardPage />} />
+        <Route element={<AdminLayout />}>
+          <Route index element={<DashboardPage />} />
+        </Route>
       </Route>
 
       <Route path="/not-allowed" element={<NotAllowed />} />
