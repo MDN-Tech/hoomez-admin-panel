@@ -8,12 +8,7 @@ export const useCurrentUser = () => {
 
   return useQuery({
     queryKey: [QUERY_KEY],
-    queryFn: async () => {
-      if (!authRepository.isAuthenticated()) {
-        throw new Error("Not authenticated");
-      }
-      return authRepository.getCurrentUser();
-    },
+    queryFn: () => authRepository.getCurrentUser(),
     enabled: authRepository.isAuthenticated(),
   });
 };
