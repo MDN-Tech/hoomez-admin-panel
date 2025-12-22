@@ -30,7 +30,7 @@ export default function LoginPage() {
         toast.success("Login successful", {
           description: "Welcome back to the admin panel.",
         });
-        navigate("/");
+        navigate("/admin");
       },
       onError: (error) => {
         const { message, status } = getError(error);
