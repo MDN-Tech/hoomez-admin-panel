@@ -1,8 +1,5 @@
 import { HttpClient } from "@/core/api/http_client";
-import type {
-  LoginResponse,
-  TokenRefreshResponse,
-} from "../../domain/entities/token_entity";
+import type { LoginResponse } from "../../domain/entities/token_entity";
 import type { LoginParams } from "../../domain/params/auth_params";
 import { endpoints } from "@/core/api/endpoints";
 
@@ -14,7 +11,7 @@ export class AuthRemoteDataSource {
 
   async login(params: LoginParams): Promise<LoginResponse> {
     const response = await this.httpClient.post<LoginResponse>(
-      endpoints.login,
+      endpoints.auth.login,
       params,
     );
 
@@ -22,15 +19,6 @@ export class AuthRemoteDataSource {
   }
 
   async logout() {
-    this.httpClient.post(endpoints.logout);
-  }
-
-  async refreshToken(refreshToken: string): Promise<TokenRefreshResponse> {
-    const response = await this.httpClient.post<TokenRefreshResponse>(
-      endpoints.refreshToken,
-      { refreshToken },
-    );
-
-    return response.data;
+    this.httpClient.post(endpoints.auth.logout);
   }
 }

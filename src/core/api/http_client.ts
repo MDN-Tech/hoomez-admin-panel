@@ -32,7 +32,7 @@ export class HttpClient {
   }
 
   private initializeRequestInterceptor() {
-    const excludedEndpoints = [endpoints.login];
+    const excludedEndpoints = [endpoints.auth.login];
 
     this.instance.interceptors.request.use(
       async (config) => {
@@ -52,9 +52,9 @@ export class HttpClient {
 
   private initializeResponseInterceptor() {
     const excludedEndpoints = [
-      endpoints.login,
-      endpoints.logout,
-      endpoints.refreshToken,
+      endpoints.auth.login,
+      endpoints.auth.logout,
+      endpoints.auth.refreshToken,
     ];
 
     this.instance.interceptors.response.use(
@@ -93,7 +93,7 @@ export class HttpClient {
 
             // You'll need to inject the remote data source or make the refresh call directly
             const response = await axios.post<{ accessToken: string }>(
-              endpoints.refreshToken,
+              endpoints.auth.refreshToken,
               { refreshToken },
             );
 
