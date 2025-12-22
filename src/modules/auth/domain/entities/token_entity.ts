@@ -1,9 +1,9 @@
-import type { UserModel } from "../../infrastructure/mappers/user_mapper";
+import type { UserResponse } from "../../infrastructure/mappers/user_mapper";
 
 export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
-  user: UserModel;
+  user: UserResponse;
 }
 
 export interface TokenRefreshResponse {

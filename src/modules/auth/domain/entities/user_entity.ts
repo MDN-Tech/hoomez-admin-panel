@@ -1,4 +1,4 @@
-import type { UserModel } from "../../infrastructure/mappers/user_mapper";
+import type { UserResponse } from "../../infrastructure/mappers/user_mapper";
 
 export interface User {
   id: string;
@@ -11,7 +11,7 @@ export interface User {
   isActive: boolean;
 }
 
-export function toJson(user: User): UserModel {
+export function toJson(user: User): UserResponse {
   return {
     id: user.id,
     firstName: user.firstName,
