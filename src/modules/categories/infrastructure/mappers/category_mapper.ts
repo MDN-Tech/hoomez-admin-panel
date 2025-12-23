@@ -1,17 +1,15 @@
 import type {
-  ProductCategory,
-  ProductCategoryTree,
+  Category,
+  CategoryTree,
 } from "../../domain/entities/category_entity";
 
 export interface CategoryTreeResponse {
   id: string;
   name: string;
-  children: ProductCategory[];
+  children: Category[];
 }
 
-export function fromJsonToTree(
-  data: CategoryTreeResponse,
-): ProductCategoryTree {
+export function fromJsonToTree(data: CategoryTreeResponse): CategoryTree {
   return {
     parentCategory: { id: data.id, name: data.name },
     children: data.children,
