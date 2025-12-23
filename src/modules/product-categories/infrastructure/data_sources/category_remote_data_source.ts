@@ -6,7 +6,6 @@ import type {
 } from "../../domain/entities/category_entity";
 import {
   fromJsonToTree,
-  type CategoryAttribuesResponse,
   type CategoryTreeResponse,
 } from "../mappers/category_mapper";
 import { endpoints } from "@/core/api/endpoints";
@@ -31,11 +30,11 @@ export class ProductCategoryRemoteDataSource {
   async getCategoryAttributes(
     categoryId: string,
   ): Promise<ProductCategoryAttribute[]> {
-    const response = await this.httpClient.get<CategoryAttribuesResponse>(
+    const response = await this.httpClient.get<ProductCategoryAttribute[]>(
       endpoints.products.getAttributesByCategory(categoryId),
     );
 
-    return response.data.attributes;
+    return response.data;
   }
 
   async getCategoryTree(): Promise<ProductCategoryTree[]> {

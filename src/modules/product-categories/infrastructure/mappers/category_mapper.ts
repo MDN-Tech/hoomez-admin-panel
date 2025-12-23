@@ -1,13 +1,7 @@
-import type { ProductCategoryAttribute } from "../../domain/entities/category_entity";
 import type {
   ProductCategory,
   ProductCategoryTree,
 } from "../../domain/entities/category_entity";
-
-export interface CategoryAttribuesResponse {
-  categoryId: string;
-  attributes: ProductCategoryAttribute[];
-}
 
 export interface CategoryTreeResponse {
   id: string;
