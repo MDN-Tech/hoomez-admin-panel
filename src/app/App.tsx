@@ -10,6 +10,7 @@ import {
 import CheckAuth from "./components/CheckAuth";
 import DashboardPage from "@/modules/dashboard/presentation/pages/DashboardPage";
 import AdminLayout from "./components/AdminLayout";
+import ProductCategoriesPage from "@/modules/product-categories/presentation/pages/ProductCategoriesPage";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
       <Route path="/admin" element={<CheckAuth allowedRoles={["admin"]} />}>
         <Route element={<AdminLayout />}>
           <Route index element={<DashboardPage />} />
+          <Route
+            path="product/categories"
+            element={<ProductCategoriesPage />}
+          />
         </Route>
       </Route>
 
