@@ -50,12 +50,12 @@ const data = {
       items: [
         {
           title: "Product List",
-          url: "/products",
+          url: "/admin/products",
           icon: List,
         },
         {
           title: "Categories",
-          url: "/products/categories",
+          url: "/admin/product/categories",
           icon: Tags,
         },
       ],
