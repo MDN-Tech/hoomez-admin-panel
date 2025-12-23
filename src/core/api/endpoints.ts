@@ -10,7 +10,7 @@ export const endpoints = {
   products: {
     getCategories: "/product/categories",
     getCategoryTree: "/product/categories/tree",
-    createCategory: "/product/categories",
+    createCategory: "/product/category/create",
     updateCategory: (categoryId: string) =>
       `/product/categories/${categoryId}/update`,
 
