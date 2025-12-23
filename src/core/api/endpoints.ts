@@ -20,4 +20,17 @@ export const endpoints = {
     updateAttribute: (attributeId: string) =>
       `/product/attributes/${attributeId}/update`,
   },
+  services: {
+    getCategories: "/service/categories",
+    getCategoryTree: "/service/categories/tree",
+    createCategory: "/service/category/create",
+    updateCategory: (categoryId: string) =>
+      `/service/categories/${categoryId}/update`,
+
+    getAttributesByCategory: (categoryId: string) =>
+      `/service/category/${categoryId}/attributes`,
+    createAttribute: "/service/category/attributes",
+    updateAttribute: (attributeId: string) =>
+      `/service/attributes/${attributeId}/update`,
+  },
 };
