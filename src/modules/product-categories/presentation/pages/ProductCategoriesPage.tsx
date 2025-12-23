@@ -1,9 +1,8 @@
-import { Plus } from "lucide-react";
 import { useGetCategories } from "../hooks/useGetCategories";
-import { Button } from "@/components/ui/button";
 import { ParentCategoryCard } from "../components/ParentCategoryCard";
 import { CategoriesPageSkeleton } from "../components/CategoriesPageSkeleton";
 import { CategoryEmptyState } from "../components/CategoryEmptyState";
+import { AddCategoryDialog } from "../components/AddCategoryDialog";
 
 function ProductCategoriesPage() {
   const { data: categoryTrees, isLoading } = useGetCategories();
@@ -23,10 +22,7 @@ function ProductCategoriesPage() {
             Manage your product categories and their attributes
           </p>
         </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          Add Parent Category
-        </Button>
+        <AddCategoryDialog />
       </div>
 
       <div className="space-y-4">

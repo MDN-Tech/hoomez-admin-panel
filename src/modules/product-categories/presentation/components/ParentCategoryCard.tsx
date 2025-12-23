@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/collapsible";
 import type { ProductCategoryTree } from "../../domain/entities/category_entity";
 import { ChildCategoryCard } from "./ChildCategoryCard";
+import { AddCategoryDialog } from "./AddCategoryDialog";
 
 interface ParentCategoryCardProps {
   categoryTree: ProductCategoryTree;
@@ -35,10 +36,15 @@ export function ParentCategoryCard({ categoryTree }: ParentCategoryCardProps) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="gap-2">
-              <Plus className="h-4 w-4" />
-              Add Subcategory
-            </Button>
+            <AddCategoryDialog
+              parentCategoryId={categoryTree.parentCategory.id}
+              trigger={
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Plus className="h-4 w-4" />
+                  Add Subcategory
+                </Button>
+              }
+            />
             <Button variant="ghost" size="icon">
               <Edit className="h-4 w-4" />
             </Button>
@@ -76,10 +82,15 @@ export function ParentCategoryCard({ categoryTree }: ParentCategoryCardProps) {
                 <p className="text-muted-foreground mb-3 text-sm">
                   No subcategories yet
                 </p>
-                <Button variant="outline" size="sm" className="gap-2">
-                  <Plus className="h-3 w-3" />
-                  Add First Subcategory
-                </Button>
+                <AddCategoryDialog
+                  parentCategoryId={categoryTree.parentCategory.id}
+                  trigger={
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <Plus className="h-3 w-3" />
+                      Add First Subcategory
+                    </Button>
+                  }
+                />
               </div>
             )}
           </CollapsibleContent>
