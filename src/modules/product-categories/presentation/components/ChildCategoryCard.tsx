@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Plus,
   Tag,
@@ -9,6 +10,8 @@ import {
   ToggleLeft,
 } from "lucide-react";
 import { useGetAttributesByCategory } from "../hooks/useGetAttributesByCategory";
+import { useUpdateCategory } from "../hooks/useUpdateCategory";
+import { useUpdateAttribute } from "../hooks/useUpdateAttribute";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,6 +26,9 @@ import type {
   ProductAttributeDataType,
   ProductCategory,
 } from "../../domain/entities/category_entity";
+import { AddAttributeDialog } from "./AddAttributeDialog";
+import { InlineEdit } from "./InlineEdit";
+import { toast } from "sonner";
 
 interface ChildCategoryCardProps {
   category: ProductCategory;
@@ -59,25 +65,86 @@ const getDataTypeColor = (dataType: ProductAttributeDataType) => {
 };
 
 export function ChildCategoryCard({ category }: ChildCategoryCardProps) {
+  const [isEditMode, setIsEditMode] = useState(false);
   const { data: attributes, isLoading: isLoadingAttributes } =
     useGetAttributesByCategory(category.id);
+  const { mutate: updateCategory, isPending: isUpdatingCategory } =
+    useUpdateCategory();
+  const { mutate: updateAttribute, isPending: isUpdatingAttribute } =
+    useUpdateAttribute();
+
+  const handleUpdateCategoryName = (newName: string) => {
+    updateCategory(
+      {
+        id: category.id,
+        params: { name: newName },
+      },
+      {
+        onSuccess: () => {
+          toast.success("Category name updated");
+          setIsEditMode(false);
+        },
+        onError: (error) => {
+          toast.error(error.message || "Failed to update category");
+        },
+      },
+    );
+  };
+
+  const handleUpdateAttributeName = (attributeId: string, newName: string) => {
+    updateAttribute(
+      {
+        id: attributeId,
+        params: { name: newName },
+      },
+      {
+        onSuccess: () => {
+          toast.success("Attribute name updated");
+        },
+        onError: (error) => {
+          toast.error(error.message || "Failed to update attribute");
+        },
+      },
+    );
+  };
 
   return (
-    <Card className="transition-shadow hover:shadow-md">
+    <Card
+      className={`transition-all ${
+        isEditMode
+          ? "border-primary/50 ring-primary/20 shadow-md ring-2"
+          : "hover:shadow-md"
+      }`}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-md">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <div className="bg-muted flex h-8 w-8 shrink-0 items-center justify-center rounded-md">
               <Tag className="text-muted-foreground h-4 w-4" />
             </div>
-            <div>
-              <CardTitle className="text-base">{category.name}</CardTitle>
+            <div className="min-w-0 flex-1">
+              {isEditMode ? (
+                <InlineEdit
+                  value={category.name}
+                  onSave={handleUpdateCategoryName}
+                  isLoading={isUpdatingCategory}
+                  className="w-full"
+                  inputClassName="text-base font-semibold"
+                />
+              ) : (
+                <CardTitle className="text-base">{category.name}</CardTitle>
+              )}
               <p className="text-muted-foreground mt-0.5 text-xs">
                 {attributes?.length || 0} attributes
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="icon" className="h-7 w-7">
+          <Button
+            variant={isEditMode ? "default" : "ghost"}
+            size="icon"
+            className="h-7 w-7 shrink-0"
+            onClick={() => setIsEditMode(!isEditMode)}
+          >
             <Edit className="h-3.5 w-3.5" />
           </Button>
         </div>
@@ -102,40 +169,62 @@ export function ChildCategoryCard({ category }: ChildCategoryCardProps) {
                   {attributes.map((attr) => (
                     <div
                       key={attr.id}
-                      className="bg-card flex items-center justify-between rounded-md border px-2.5 py-1.5 text-sm"
+                      className="bg-card flex items-center justify-between gap-2 rounded-md border px-2.5 py-1.5 text-sm"
                     >
-                      <span className="text-sm font-medium">{attr.name}</span>
+                      {isEditMode ? (
+                        <InlineEdit
+                          value={attr.name}
+                          onSave={(newName) =>
+                            handleUpdateAttributeName(attr.id, newName)
+                          }
+                          isLoading={isUpdatingAttribute}
+                          className="flex-1"
+                          inputClassName="text-sm"
+                        />
+                      ) : (
+                        <span className="text-sm font-medium">{attr.name}</span>
+                      )}
                       <Badge
                         variant="outline"
-                        className={`gap-1 text-xs ${getDataTypeColor(attr.dataType)}`}
+                        className={`shrink-0 gap-1 text-xs ${getDataTypeColor(attr.dataType)}`}
                       >
                         {getDataTypeIcon(attr.dataType)}
                         {attr.dataType}
                       </Badge>
                     </div>
                   ))}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-2 h-8 w-full gap-2 text-xs"
-                  >
-                    <Plus className="h-3 w-3" />
-                    Add Attribute
-                  </Button>
+                  <AddAttributeDialog
+                    categoryId={category.id}
+                    trigger={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mt-2 h-8 w-full gap-2 text-xs"
+                      >
+                        <Plus className="h-3 w-3" />
+                        Add Attribute
+                      </Button>
+                    }
+                  />
                 </div>
               ) : (
                 <div className="py-4 text-center">
                   <p className="text-muted-foreground mb-2 text-xs">
                     No attributes defined
                   </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-7 gap-2 text-xs"
-                  >
-                    <Plus className="h-3 w-3" />
-                    Add Attribute
-                  </Button>
+                  <AddAttributeDialog
+                    categoryId={category.id}
+                    trigger={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 gap-2 text-xs"
+                      >
+                        <Plus className="h-3 w-3" />
+                        Add Attribute
+                      </Button>
+                    }
+                  />
                 </div>
               )}
             </AccordionContent>
