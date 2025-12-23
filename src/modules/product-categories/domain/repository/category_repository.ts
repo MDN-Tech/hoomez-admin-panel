@@ -2,6 +2,8 @@ import type { ProductCategoryRemoteDataSource } from "../../infrastructure/data_
 import type {
   CreateAttributeParams,
   CreateCategoryParams,
+  UpdateAttributeParams,
+  UpdateCategoryParams,
 } from "../../infrastructure/params/category_params";
 import type {
   ProductCategory,
@@ -36,9 +38,9 @@ export class ProductCategoryRepository {
 
   async updateCategory(
     id: string,
-    category: ProductCategory,
+    params: UpdateCategoryParams,
   ): Promise<ProductCategory> {
-    return await this.remoteDataSource.updateCategory(id, category);
+    return await this.remoteDataSource.updateCategory(id, params);
   }
 
   async createAttribute(
@@ -53,8 +55,8 @@ export class ProductCategoryRepository {
 
   async updateAttribute(
     id: string,
-    attribute: ProductCategoryAttribute,
+    params: UpdateAttributeParams,
   ): Promise<ProductCategoryAttribute> {
-    return await this.remoteDataSource.updateAttribute(id, attribute);
+    return await this.remoteDataSource.updateAttribute(id, params);
   }
 }

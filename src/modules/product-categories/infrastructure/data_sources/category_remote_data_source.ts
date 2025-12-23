@@ -9,7 +9,11 @@ import {
   type CategoryTreeResponse,
 } from "../mappers/category_mapper";
 import { endpoints } from "@/core/api/endpoints";
-import type { CreateAttributeParams } from "../params/category_params";
+import type {
+  CreateAttributeParams,
+  UpdateAttributeParams,
+  UpdateCategoryParams,
+} from "../params/category_params";
 import type { CreateCategoryParams } from "../params/category_params";
 
 export class ProductCategoryRemoteDataSource {
@@ -58,11 +62,11 @@ export class ProductCategoryRemoteDataSource {
 
   async updateCategory(
     id: string,
-    category: ProductCategory,
+    params: UpdateCategoryParams,
   ): Promise<ProductCategory> {
     const response = await this.httpClient.put<ProductCategory>(
       endpoints.products.updateCategory(id),
-      category,
+      { name: params.name },
     );
 
     return response.data;
@@ -85,11 +89,13 @@ export class ProductCategoryRemoteDataSource {
 
   async updateAttribute(
     id: string,
-    attribute: ProductCategoryAttribute,
+    params: UpdateAttributeParams,
   ): Promise<ProductCategoryAttribute> {
     const response = await this.httpClient.put<ProductCategoryAttribute>(
       endpoints.products.updateAttribute(id),
-      attribute,
+      {
+        name: params.name,
+      },
     );
 
     return response.data;

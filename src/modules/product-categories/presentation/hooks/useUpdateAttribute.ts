@@ -1,7 +1,7 @@
 import { useRepositories } from "@/app/hooks/repository_hook";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { ProductCategoryAttribute } from "../../domain/entities/category_entity";
 import { GET_ATTRIBUTES_BY_CATEGORY_QUERY_KEY } from "./useGetAttributesByCategory";
+import type { UpdateAttributeParams } from "../../infrastructure/params/category_params";
 
 export const useUpdateAttribute = () => {
   const { categoryRepository } = useRepositories();
@@ -10,11 +10,11 @@ export const useUpdateAttribute = () => {
   return useMutation({
     mutationFn: ({
       id,
-      attribute,
+      params,
     }: {
       id: string;
-      attribute: ProductCategoryAttribute;
-    }) => categoryRepository.updateAttribute(id, attribute),
+      params: UpdateAttributeParams;
+    }) => categoryRepository.updateAttribute(id, params),
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: [GET_ATTRIBUTES_BY_CATEGORY_QUERY_KEY],
