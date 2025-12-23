@@ -8,8 +8,16 @@ export const endpoints = {
     getFullData: "/dashboard",
   },
   products: {
-    categories: "/products/categories",
-    categoryTree: "/products/categories/tree",
-    attributes: (categoryId: string) => `/products/attributes/${categoryId}`,
+    getCategories: "/product/categories",
+    getCategoryTree: "/product/categories/tree",
+    createCategory: "/product/categories",
+    updateCategory: (categoryId: string) =>
+      `/product/categories/${categoryId}/update`,
+
+    getAttributesByCategory: (categoryId: string) =>
+      `/product/category/${categoryId}/attributes`,
+    createAttribute: "/product/category/attributes",
+    updateAttribute: (attributeId: string) =>
+      `/product/attributes/${attributeId}/update`,
   },
 };
