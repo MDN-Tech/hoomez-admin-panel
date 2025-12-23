@@ -8,12 +8,14 @@ export interface ProductCategoryTree {
   children: ProductCategory[];
 }
 
-export function toJson(category: ProductCategory) {
-  return { id: category.id, name: category.name };
-}
+export type ProductAttributeDataType = "string" | "number" | "boolean" | "date";
 
 export interface ProductCategoryAttribute {
   id: string;
   name: string;
-  dataType: string;
+  dataType: ProductAttributeDataType;
+}
+
+export function toJson(category: ProductCategory) {
+  return { id: category.id, name: category.name };
 }
