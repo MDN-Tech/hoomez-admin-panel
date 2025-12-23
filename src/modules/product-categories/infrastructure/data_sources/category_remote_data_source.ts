@@ -10,6 +10,8 @@ import {
   type CategoryTreeResponse,
 } from "../mappers/category_mapper";
 import { endpoints } from "@/core/api/endpoints";
+import type { CreateAttributeParams } from "../params/category_params";
+import type { CreateCategoryParams } from "../params/category_params";
 
 export class ProductCategoryRemoteDataSource {
   private httpClient: HttpClient;
@@ -20,7 +22,7 @@ export class ProductCategoryRemoteDataSource {
 
   async getCategories(): Promise<ProductCategory[]> {
     const response = await this.httpClient.get<ProductCategory[]>(
-      endpoints.products.categories,
+      endpoints.products.getCategories,
     );
 
     return response.data;
@@ -30,7 +32,7 @@ export class ProductCategoryRemoteDataSource {
     categoryId: string,
   ): Promise<ProductCategoryAttribute[]> {
     const response = await this.httpClient.get<CategoryAttribuesResponse>(
-      endpoints.products.attributes(categoryId),
+      endpoints.products.getAttributesByCategory(categoryId),
     );
 
     return response.data.attributes;
@@ -38,22 +40,18 @@ export class ProductCategoryRemoteDataSource {
 
   async getCategoryTree(): Promise<ProductCategoryTree[]> {
     const response = await this.httpClient.get<CategoryTreeResponse[]>(
-      endpoints.products.categoryTree,
+      endpoints.products.getCategoryTree,
     );
 
     return response.data.map(fromJsonToTree);
   }
 
-  async createCategory(
-    categoryName: string,
-    parentCategoryId?: string,
-  ): Promise<ProductCategory> {
+  async createCategory(params: CreateCategoryParams): Promise<ProductCategory> {
+    if (!params.parentCategoryId) delete params.parentCategoryId;
+
     const response = await this.httpClient.post<ProductCategory>(
-      endpoints.products.categories,
-      {
-        name: categoryName,
-        ...(parentCategoryId && { parentCategoryId }),
-      },
+      endpoints.products.createCategory,
+      params,
     );
 
     return response.data;
@@ -64,8 +62,35 @@ export class ProductCategoryRemoteDataSource {
     category: ProductCategory,
   ): Promise<ProductCategory> {
     const response = await this.httpClient.put<ProductCategory>(
-      `${endpoints.products.categories}/${id}`,
+      endpoints.products.updateCategory(id),
       category,
+    );
+
+    return response.data;
+  }
+
+  async createAttribute(
+    categoryId: string,
+    createAttributeParams: CreateAttributeParams[],
+  ): Promise<ProductCategoryAttribute> {
+    const response = await this.httpClient.post<ProductCategoryAttribute>(
+      endpoints.products.createAttribute,
+      {
+        categoryId,
+        attributes: createAttributeParams,
+      },
+    );
+
+    return response.data;
+  }
+
+  async updateAttribute(
+    id: string,
+    attribute: ProductCategoryAttribute,
+  ): Promise<ProductCategoryAttribute> {
+    const response = await this.httpClient.put<ProductCategoryAttribute>(
+      endpoints.products.updateAttribute(id),
+      attribute,
     );
 
     return response.data;
