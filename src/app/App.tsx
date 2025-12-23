@@ -10,7 +10,8 @@ import {
 import CheckAuth from "./components/CheckAuth";
 import DashboardPage from "@/modules/dashboard/presentation/pages/DashboardPage";
 import AdminLayout from "./components/AdminLayout";
-import ProductCategoriesPage from "@/modules/product-categories/presentation/pages/ProductCategoriesPage";
+import ProductCategoriesPage from "@/modules/categories/presentation/pages/ProductCategoriesPage";
+import ServiceCategoriesPage from "@/modules/categories/presentation/pages/ServiceCategoriesPage";
 
 function App() {
   return (
@@ -21,8 +22,12 @@ function App() {
         <Route element={<AdminLayout />}>
           <Route index element={<DashboardPage />} />
           <Route
-            path="product/categories"
+            path="categories/products"
             element={<ProductCategoriesPage />}
+          />
+          <Route
+            path="categories/services"
+            element={<ServiceCategoriesPage />}
           />
         </Route>
       </Route>
