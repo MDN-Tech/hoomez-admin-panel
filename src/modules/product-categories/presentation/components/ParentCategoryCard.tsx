@@ -10,6 +10,9 @@ import {
 import type { ProductCategoryTree } from "../../domain/entities/category_entity";
 import { ChildCategoryCard } from "./ChildCategoryCard";
 import { AddCategoryDialog } from "./AddCategoryDialog";
+import { useUpdateCategory } from "../hooks/useUpdateCategory";
+import { InlineEdit } from "./InlineEdit";
+import { toast } from "sonner";
 
 interface ParentCategoryCardProps {
   categoryTree: ProductCategoryTree;
@@ -17,19 +20,56 @@ interface ParentCategoryCardProps {
 
 export function ParentCategoryCard({ categoryTree }: ParentCategoryCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const { mutate: updateCategory, isPending: isUpdating } = useUpdateCategory();
+
+  const handleUpdateCategoryName = (newName: string) => {
+    updateCategory(
+      {
+        id: categoryTree.parentCategory.id,
+        params: { name: newName },
+      },
+      {
+        onSuccess: () => {
+          toast.success("Category name updated");
+          setIsEditMode(false);
+        },
+        onError: (error) => {
+          toast.error(error.message || "Failed to update category");
+        },
+      },
+    );
+  };
 
   return (
-    <Card>
+    <Card
+      className={`transition-all ${
+        isEditMode
+          ? "border-primary/50 ring-primary/20 shadow-md ring-2"
+          : "hover:shadow-sm"
+      }`}
+    >
       <CardHeader>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary text-primary-foreground flex h-10 w-10 items-center justify-center rounded-lg">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
+            <div className="bg-primary text-primary-foreground flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
               <FolderTree className="h-5 w-5" />
             </div>
-            <div>
-              <CardTitle className="text-xl">
-                {categoryTree.parentCategory.name}
-              </CardTitle>
+            <div className="min-w-0 flex-1">
+              {isEditMode ? (
+                <InlineEdit
+                  value={categoryTree.parentCategory.name}
+                  onSave={handleUpdateCategoryName}
+                  isLoading={isUpdating}
+                  className="w-full"
+                  inputClassName="text-xl font-bold"
+                />
+              ) : (
+                <CardTitle className="truncate text-xl">
+                  {categoryTree.parentCategory.name}
+                </CardTitle>
+              )}
               <p className="text-muted-foreground mt-1 text-sm">
                 {categoryTree.children.length} subcategories
               </p>
@@ -45,7 +85,12 @@ export function ParentCategoryCard({ categoryTree }: ParentCategoryCardProps) {
                 </Button>
               }
             />
-            <Button variant="ghost" size="icon">
+            <Button
+              variant={isEditMode ? "default" : "ghost"}
+              size="icon"
+              onClick={() => setIsEditMode(!isEditMode)}
+              className="h-8 w-8"
+            >
               <Edit className="h-4 w-4" />
             </Button>
           </div>
