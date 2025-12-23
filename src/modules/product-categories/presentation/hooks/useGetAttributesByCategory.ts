@@ -8,6 +8,6 @@ export const useGetAttributesByCategory = (categoryId: string) => {
 
   return useQuery({
     queryFn: () => categoryRepository.getCategoryAttributes(categoryId),
-    queryKey: [GET_ATTRIBUTES_BY_CATEGORY_QUERY_KEY],
+    queryKey: [GET_ATTRIBUTES_BY_CATEGORY_QUERY_KEY, categoryId],
   });
 };
