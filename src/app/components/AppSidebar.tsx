@@ -9,6 +9,8 @@ import {
   Tags,
   List,
   LogOut,
+  Megaphone,
+  Users,
 } from "lucide-react";
 
 import {
@@ -39,7 +41,7 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/admin",
+      url: "/",
       icon: LayoutDashboard,
     },
     {
@@ -50,12 +52,12 @@ const data = {
       items: [
         {
           title: "Product List",
-          url: "/admin/products",
+          url: "/products",
           icon: List,
         },
         {
           title: "Categories",
-          url: "/admin/product/categories",
+          url: "/product/categories",
           icon: Tags,
         },
       ],
@@ -76,6 +78,16 @@ const data = {
           icon: Tags,
         },
       ],
+    },
+    {
+      title: "Promotions",
+      url: "/promotions",
+      icon: Megaphone,
+    },
+    {
+      title: "Users",
+      url: "/users",
+      icon: Users,
     },
   ],
 };
@@ -129,7 +141,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           {item.items.map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton asChild>
-                                <NavLink to={subItem.url}>
+                                <NavLink to={"/admin" + subItem.url}>
                                   <span>{subItem.title}</span>
                                 </NavLink>
                               </SidebarMenuSubButton>
@@ -140,7 +152,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </>
                   ) : (
                     <SidebarMenuButton asChild tooltip={item.title}>
-                      <NavLink to={item.url}>
+                      <NavLink to={"/admin" + item.url}>
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
                       </NavLink>
