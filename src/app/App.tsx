@@ -15,6 +15,7 @@ import ServiceCategoriesPage from "@/modules/categories/presentation/pages/Servi
 import ProductsPage from "@/modules/products/presentation/pages/ProductsPage";
 import ServicesPage from "@/modules/services/presentation/pages/ServicesPage";
 import PromotionsPage from "@/modules/promotions/presentation/pages/PromotionsPage";
+import UsersPage from "@/modules/users/presentation/pages/UsersPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="products" element={<ProductsPage />} />
           <Route path="services" element={<ServicesPage />} />
           <Route path="promotions" element={<PromotionsPage />} />
+          <Route path="users" element={<UsersPage />} />
           <Route
             path="categories/products"
             element={<ProductCategoriesPage />}
