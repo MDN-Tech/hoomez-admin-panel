@@ -39,4 +39,22 @@ export const endpoints = {
     getServices: "/service/filtered",
     getServiceById: (productId: string) => `/service/${productId}/single`,
   },
+  promotions: {
+    getPromotions: "/promotion/all",
+    getPromotionById: (promotionId: string) =>
+      `/promotion/${promotionId}/single`,
+
+    createPromotion: "/promotion/create",
+    updatePromotion: (promotionId: string) =>
+      `/promotion/${promotionId}/update`,
+    deletePromotion: (promotionId: string) =>
+      `/promotion/${promotionId}/delete`,
+
+    approvePromotion: (promotionId: string) =>
+      `/promotion/${promotionId}/approve`,
+    rejectPromotion: (promotionId: string) =>
+      `/promotion/${promotionId}/reject`,
+    cancelPromotion: (promotionId: string) =>
+      `/promotion/${promotionId}/cancel`,
+  },
 };
