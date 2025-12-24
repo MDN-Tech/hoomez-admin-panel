@@ -12,6 +12,8 @@ import DashboardPage from "@/modules/dashboard/presentation/pages/DashboardPage"
 import AdminLayout from "./components/AdminLayout";
 import ProductCategoriesPage from "@/modules/categories/presentation/pages/ProductCategoriesPage";
 import ServiceCategoriesPage from "@/modules/categories/presentation/pages/ServiceCategoriesPage";
+import ProductsPage from "@/modules/products/presentation/pages/ProductsPage";
+import ServicesPage from "@/modules/services/presentation/pages/ServicesPage";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
       <Route path="/admin" element={<CheckAuth allowedRoles={["admin"]} />}>
         <Route element={<AdminLayout />}>
           <Route index element={<DashboardPage />} />
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="services" element={<ServicesPage />} />
           <Route
             path="categories/products"
             element={<ProductCategoriesPage />}
