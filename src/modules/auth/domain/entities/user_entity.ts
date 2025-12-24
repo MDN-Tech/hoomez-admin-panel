@@ -1,4 +1,4 @@
-import type { UserModel } from "../../infrastructure/mappers/user_mapper";
+import type { UserResponse } from "../../infrastructure/mappers/user_mapper";
 
 export interface User {
   id: string;
@@ -6,12 +6,12 @@ export interface User {
   lastName: string;
   email: string;
   phoneNumber: string;
-  role: "admin" | "user" | "manager";
+  role: UserRole;
   dateOfBirth: Date;
   isActive: boolean;
 }
 
-export function toJson(user: User): UserModel {
+export function toJson(user: User): UserResponse {
   return {
     id: user.id,
     firstName: user.firstName,
@@ -24,4 +24,4 @@ export function toJson(user: User): UserModel {
   };
 }
 
-export type UserRole = "admin" | "user" | "manager";
+export type UserRole = "admin" | "customer" | "supplier";

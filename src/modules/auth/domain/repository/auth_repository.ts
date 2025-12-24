@@ -1,7 +1,6 @@
 import type { AuthLocalDataSource } from "../../infrastructure/data_sources/auth_local_data_source";
 import type { AuthRemoteDataSource } from "../../infrastructure/data_sources/auth_remote_data_source";
 import { fromJson } from "../../infrastructure/mappers/user_mapper";
-import type { TokenRefreshResponse } from "../entities/token_entity";
 import type { User } from "../entities/user_entity";
 import type { LoginParams } from "../params/auth_params";
 
@@ -16,7 +15,7 @@ export class AuthRepository {
     this.remoteDataSource = remoteDataSource;
   }
 
-  async login(params: LoginParams): Promise<TokenRefreshResponse> {
+  async login(params: LoginParams): Promise<void> {
     const response = await this.remoteDataSource.login(params);
     this.localDataSource.saveTokens(
       response.accessToken,
@@ -24,22 +23,12 @@ export class AuthRepository {
     );
 
     this.localDataSource.setCurrentUser(fromJson(response.user));
-    return response;
-  }
-
-  async refreshToken(refreshToken: string): Promise<TokenRefreshResponse> {
-    const response = await this.remoteDataSource.refreshToken(refreshToken);
-    this.localDataSource.saveTokens(
-      response.accessToken,
-      response.refreshToken,
-    );
-    return response;
   }
 
   async logout() {
-    this.localDataSource.clearTokens();
+    await this.remoteDataSource.logout();
     this.localDataSource.clearUser();
-    this.remoteDataSource.logout();
+    this.localDataSource.clearTokens();
   }
 
   getCurrentUser(): User | null {

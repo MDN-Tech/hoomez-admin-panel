@@ -3,7 +3,7 @@ import type {
   UserRole,
 } from "@/modules/auth/domain/entities/user_entity";
 
-export interface UserModel {
+export interface UserResponse {
   id: string;
   firstName: string;
   lastName: string;
@@ -15,7 +15,7 @@ export interface UserModel {
 }
 
 // Function to map API response to domain entity
-export function fromJson(apiUser: UserModel): User {
+export function fromJson(apiUser: UserResponse): User {
   return {
     id: apiUser.id,
     firstName: apiUser.firstName,

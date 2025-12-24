@@ -5,6 +5,7 @@ import axios, {
   type AxiosResponse,
 } from "axios";
 import type { AuthLocalDataSource } from "@/modules/auth/infrastructure/data_sources/auth_local_data_source";
+import { endpoints } from "./endpoints";
 
 export class HttpClient {
   private instance: AxiosInstance;
@@ -31,10 +32,16 @@ export class HttpClient {
   }
 
   private initializeRequestInterceptor() {
+    const excludedEndpoints = [endpoints.auth.login];
+
     this.instance.interceptors.request.use(
       async (config) => {
         const token = this.authLocalDataSource.getAccessToken();
-        if (token && config.headers) {
+        if (
+          token &&
+          config.headers &&
+          !excludedEndpoints.includes(config.url || "")
+        ) {
           config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
@@ -44,6 +51,12 @@ export class HttpClient {
   }
 
   private initializeResponseInterceptor() {
+    const excludedEndpoints = [
+      endpoints.auth.login,
+      endpoints.auth.logout,
+      endpoints.auth.refreshToken,
+    ];
+
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error) => {
@@ -51,7 +64,11 @@ export class HttpClient {
           _retry?: boolean;
         };
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (
+          error.response?.status === 401 &&
+          !originalRequest._retry &&
+          !excludedEndpoints.includes(originalRequest.url || "")
+        ) {
           if (this.isRefreshing) {
             return new Promise((resolve, reject) => {
               this.failedQueue.push({ resolve, reject });
@@ -76,7 +93,7 @@ export class HttpClient {
 
             // You'll need to inject the remote data source or make the refresh call directly
             const response = await axios.post<{ accessToken: string }>(
-              "/auth/refresh-token",
+              endpoints.auth.refreshToken,
               { refreshToken },
             );
 
@@ -128,6 +145,14 @@ export class HttpClient {
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
     return this.instance.post<T>(url, data, config);
+  }
+
+  public patch<T>(
+    url: string,
+    data?: unknown,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>> {
+    return this.instance.patch<T>(url, data, config);
   }
 
   public put<T>(
