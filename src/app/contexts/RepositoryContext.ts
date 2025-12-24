@@ -8,6 +8,10 @@ import { DashboardRemoteDataSource } from "@/modules/dashboard/infrastructure/da
 import { DashboardDataRepository } from "@/modules/dashboard/domain/repository/dashboard_data_repository";
 import { CategoryRemoteDataSource } from "@/modules/categories/infrastructure/data_sources/category_remote_data_source";
 import { CategoryRepository } from "@/modules/categories/domain/repository/category_repository";
+import { ProductRemoteDataSource } from "@/modules/products/infrastructure/data_sources/product_remote_data_source";
+import { ProductRepository } from "@/modules/products/domain/repository/product_repository";
+import { ServiceRemoteDataSource } from "@/modules/services/infrastructure/data_sources/service_remote_data_source";
+import { ServiceRepository } from "@/modules/services/domain/repository/service_repository";
 
 // Initialize core dependencies
 const tokenStorageService = new TokenStorageService();
@@ -31,11 +35,21 @@ const dashboardRepository = new DashboardDataRepository(
 const categoryRemoteDataSource = new CategoryRemoteDataSource(httpClient);
 const categoryRepository = new CategoryRepository(categoryRemoteDataSource);
 
+// Initialize product dependencies
+const productRemoteDataSource = new ProductRemoteDataSource(httpClient);
+const productRepository = new ProductRepository(productRemoteDataSource);
+
+// Initialize service dependencies
+const serviceRemoteDataSource = new ServiceRemoteDataSource(httpClient);
+const serviceRepository = new ServiceRepository(serviceRemoteDataSource);
+
 // Initialize repositories
 export const repositories = {
   authRepository,
   dashboardRepository,
   categoryRepository,
+  productRepository,
+  serviceRepository,
 };
 
 type Repositories = typeof repositories;
