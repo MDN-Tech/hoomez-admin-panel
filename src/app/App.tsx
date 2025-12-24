@@ -14,6 +14,7 @@ import ProductCategoriesPage from "@/modules/categories/presentation/pages/Produ
 import ServiceCategoriesPage from "@/modules/categories/presentation/pages/ServiceCategoriesPage";
 import ProductsPage from "@/modules/products/presentation/pages/ProductsPage";
 import ServicesPage from "@/modules/services/presentation/pages/ServicesPage";
+import PromotionsPage from "@/modules/promotions/presentation/pages/PromotionsPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="services" element={<ServicesPage />} />
+          <Route path="promotions" element={<PromotionsPage />} />
           <Route
             path="categories/products"
             element={<ProductCategoriesPage />}
