@@ -6,7 +6,7 @@ export interface User {
   lastName: string;
   email: string;
   phoneNumber: string;
-  role: "admin" | "user" | "manager";
+  role: UserRole;
   dateOfBirth: Date;
   isActive: boolean;
 }
@@ -24,4 +24,4 @@ export function toJson(user: User): UserResponse {
   };
 }
 
-export type UserRole = "admin" | "user" | "manager";
+export type UserRole = "admin" | "customer" | "supplier";
