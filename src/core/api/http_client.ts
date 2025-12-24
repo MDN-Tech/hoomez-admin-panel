@@ -147,6 +147,14 @@ export class HttpClient {
     return this.instance.post<T>(url, data, config);
   }
 
+  public patch<T>(
+    url: string,
+    data?: unknown,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>> {
+    return this.instance.patch<T>(url, data, config);
+  }
+
   public put<T>(
     url: string,
     data?: unknown,
