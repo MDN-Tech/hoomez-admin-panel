@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { useCreateCategory } from "../hooks/useCreateCategory";
 import { toast } from "sonner";
 import { useCategoryContext } from "../hooks/useCategoryContext";
+import { getError } from "@/core/helpers/error_messages";
 
 interface AddCategoryDialogProps {
   parentCategoryId?: string;
@@ -57,7 +58,8 @@ export function AddCategoryDialog({
         },
         onError: (error) => {
           toast.error(
-            error.message || `Failed to create ${itemType.toLowerCase()}`,
+            getError(error).message ||
+              `Failed to create ${itemType.toLowerCase()}`,
           );
         },
       },

@@ -14,6 +14,7 @@ import { useUpdateCategory } from "../hooks/useUpdateCategory";
 import { InlineEdit } from "./InlineEdit";
 import { toast } from "sonner";
 import { useCategoryContext } from "../hooks/useCategoryContext";
+import { getError } from "@/core/helpers/error_messages";
 
 interface ParentCategoryCardProps {
   categoryTree: CategoryTree;
@@ -40,7 +41,7 @@ export function ParentCategoryCard({ categoryTree }: ParentCategoryCardProps) {
           setIsEditMode(false);
         },
         onError: (error) => {
-          toast.error(error.message || "Failed to update category");
+          toast.error(getError(error).message || "Failed to update category");
         },
       },
     );

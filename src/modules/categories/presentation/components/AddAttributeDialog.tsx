@@ -23,6 +23,7 @@ import { useCreateAttributes } from "../hooks/useCreateAttributes";
 import { toast } from "sonner";
 import type { AttributeDataType } from "../../domain/entities/category_entity";
 import { useCategoryContext } from "../hooks/useCategoryContext";
+import { getError } from "@/core/helpers/error_messages";
 
 interface AddAttributeDialogProps {
   categoryId: string;
@@ -63,7 +64,7 @@ export function AddAttributeDialog({
           setOpen(false);
         },
         onError: (error) => {
-          toast.error(error.message || "Failed to create attribute");
+          toast.error(getError(error).message || "Failed to create attribute");
         },
       },
     );

@@ -30,6 +30,7 @@ import { AddAttributeDialog } from "./AddAttributeDialog";
 import { InlineEdit } from "./InlineEdit";
 import { toast } from "sonner";
 import { useCategoryContext } from "../hooks/useCategoryContext";
+import { getError } from "@/core/helpers/error_messages";
 
 interface ChildCategoryCardProps {
   category: Category;
@@ -87,7 +88,7 @@ export function ChildCategoryCard({ category }: ChildCategoryCardProps) {
           setIsEditMode(false);
         },
         onError: (error) => {
-          toast.error(error.message || "Failed to update category");
+          toast.error(getError(error).message || "Failed to update category");
         },
       },
     );
@@ -104,7 +105,7 @@ export function ChildCategoryCard({ category }: ChildCategoryCardProps) {
           toast.success("Attribute name updated");
         },
         onError: (error) => {
-          toast.error(error.message || "Failed to update attribute");
+          toast.error(getError(error).message || "Failed to update attribute");
         },
       },
     );
