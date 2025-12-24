@@ -1,4 +1,4 @@
-import { useRepositories } from "@/app/hooks/repository_hook";
+import { useRepositories } from "@/app/hooks/useRepository";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { CreateAttributeParams } from "../../infrastructure/params/category_params";
 import { GET_ATTRIBUTES_BY_CATEGORY_QUERY_KEY } from "./useGetAttributesByCategory";

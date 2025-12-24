@@ -1,4 +1,4 @@
-import { useRepositories } from "@/app/hooks/repository_hook";
+import { useRepositories } from "@/app/hooks/useRepository";
 import { useQuery } from "@tanstack/react-query";
 
 export const QUERY_KEY = "dashboard-data";

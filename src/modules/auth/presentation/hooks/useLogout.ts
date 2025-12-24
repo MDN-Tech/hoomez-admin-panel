@@ -1,4 +1,4 @@
-import { useRepositories } from "@/app/hooks/repository_hook";
+import { useRepositories } from "@/app/hooks/useRepository";
 import { useMutation } from "@tanstack/react-query";
 
 export const useLogout = () => {

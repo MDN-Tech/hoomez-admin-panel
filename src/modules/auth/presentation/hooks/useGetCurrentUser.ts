@@ -1,4 +1,4 @@
-import { useRepositories } from "@/app/hooks/repository_hook";
+import { useRepositories } from "@/app/hooks/useRepository";
 
 export const useGetCurrentUser = () => {
   const { authRepository } = useRepositories();
