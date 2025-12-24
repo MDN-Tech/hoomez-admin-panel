@@ -19,6 +19,9 @@ export const endpoints = {
     createAttribute: "/product/category/attributes",
     updateAttribute: (attributeId: string) =>
       `/product/attributes/${attributeId}/update`,
+
+    getProducts: "/product/filtered",
+    getProductById: (productId: string) => `/product/${productId}/single`,
   },
   services: {
     getCategories: "/service/categories",
@@ -32,5 +35,8 @@ export const endpoints = {
     createAttribute: "/service/category/attributes",
     updateAttribute: (attributeId: string) =>
       `/service/attributes/${attributeId}/update`,
+
+    getServices: "/service/filtered",
+    getServiceById: (productId: string) => `/service/${productId}/single`,
   },
 };
