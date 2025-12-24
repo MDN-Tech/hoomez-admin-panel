@@ -57,4 +57,10 @@ export const endpoints = {
     cancelPromotion: (promotionId: string) =>
       `/promotion/${promotionId}/cancel`,
   },
+  users: {
+    getUsers: "/user",
+    getUserById: (userId: string) => `/user/${userId}/single`,
+    activateUser: (userId: string) => `/user/${userId}/activate`,
+    deactivateUser: (userId: string) => `/user/${userId}/deactivate`,
+  },
 };
