@@ -105,6 +105,7 @@ export function ServiceDetailDialog({
                                   src={img.url}
                                   alt={service.name}
                                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                  loading="lazy"
                                 />
                               </div>
                             </CarouselItem>
@@ -213,6 +214,7 @@ export function ServiceDetailDialog({
                                         src={pkg.images[0].url}
                                         className="h-full w-full object-cover"
                                         alt=""
+                                        loading="lazy"
                                       />
                                     ) : (
                                       <Layers className="m-auto mt-3 h-6 w-6 opacity-20" />

@@ -254,6 +254,7 @@ export default function ServicesPage() {
                           src={service.images[0].url}
                           alt={service.name}
                           className="h-full w-full object-cover transition-transform group-hover:scale-110"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">

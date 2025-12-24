@@ -144,6 +144,7 @@ export default function LoginPage() {
           src="https://images.unsplash.com/photo-1605152276897-4f618f831968?q=80&w=2370&auto=format&fit=crop"
           alt="Modern Architecture"
           className="h-full w-full object-cover transition-transform duration-700 hover:scale-105 dark:opacity-80"
+          loading="lazy"
         />
         <div className="absolute right-10 bottom-10 left-10 z-20 hidden rounded-2xl border border-white/10 bg-black/10 p-6 text-white backdrop-blur-md xl:block">
           <blockquote className="space-y-2">

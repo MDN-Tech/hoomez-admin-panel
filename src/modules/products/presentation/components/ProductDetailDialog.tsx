@@ -138,6 +138,7 @@ export function ProductDetailDialog({
                                   src={img.url}
                                   alt={product.name}
                                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                  loading="lazy"
                                 />
                               </div>
                             </CarouselItem>
@@ -269,6 +270,7 @@ export function ProductDetailDialog({
                                       src={v.images[0].url}
                                       className="h-full w-full object-cover"
                                       alt=""
+                                      loading="lazy"
                                     />
                                   ) : (
                                     <Package className="m-auto mt-2.5 h-5 w-5 opacity-20" />
