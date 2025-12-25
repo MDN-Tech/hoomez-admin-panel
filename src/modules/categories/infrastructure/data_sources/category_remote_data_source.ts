@@ -101,7 +101,7 @@ export class CategoryRemoteDataSource {
     id: string,
     params: UpdateCategoryParams,
   ): Promise<Category> {
-    const response = await this.httpClient.put<Category>(
+    const response = await this.httpClient.patch<Category>(
       endpoints.products.updateCategory(id),
       { name: params.name },
     );
@@ -113,7 +113,7 @@ export class CategoryRemoteDataSource {
     id: string,
     params: UpdateCategoryParams,
   ): Promise<Category> {
-    const response = await this.httpClient.put<Category>(
+    const response = await this.httpClient.patch<Category>(
       endpoints.services.updateCategory(id),
       { name: params.name },
     );
@@ -155,7 +155,7 @@ export class CategoryRemoteDataSource {
     id: string,
     params: UpdateAttributeParams,
   ): Promise<CategoryAttribute> {
-    const response = await this.httpClient.put<CategoryAttribute>(
+    const response = await this.httpClient.patch<CategoryAttribute>(
       endpoints.products.updateAttribute(id),
       {
         name: params.name,
@@ -169,7 +169,7 @@ export class CategoryRemoteDataSource {
     id: string,
     params: UpdateAttributeParams,
   ): Promise<CategoryAttribute> {
-    const response = await this.httpClient.put<CategoryAttribute>(
+    const response = await this.httpClient.patch<CategoryAttribute>(
       endpoints.services.updateAttribute(id),
       {
         name: params.name,
