@@ -12,13 +12,13 @@ export const endpoints = {
     getCategoryTree: "/product/categories/tree",
     createCategory: "/product/category/create",
     updateCategory: (categoryId: string) =>
-      `/product/categories/${categoryId}/update`,
+      `/product/categories/${categoryId}/name`,
 
     getAttributesByCategory: (categoryId: string) =>
       `/product/category/${categoryId}/attributes`,
     createAttribute: "/product/category/attributes",
     updateAttribute: (attributeId: string) =>
-      `/product/attributes/${attributeId}/update`,
+      `/product/attributes/${attributeId}/name`,
 
     getProducts: "/product/filtered",
     getProductById: (productId: string) => `/product/${productId}/single`,
@@ -28,13 +28,13 @@ export const endpoints = {
     getCategoryTree: "/service/categories/tree",
     createCategory: "/service/category/create",
     updateCategory: (categoryId: string) =>
-      `/service/categories/${categoryId}/update`,
+      `/product/categories/${categoryId}/name`,
 
     getAttributesByCategory: (categoryId: string) =>
       `/service/category/${categoryId}/attributes`,
     createAttribute: "/service/category/attributes",
     updateAttribute: (attributeId: string) =>
-      `/service/attributes/${attributeId}/update`,
+      `/product/attributes/${attributeId}/name`,
 
     getServices: "/service/filtered",
     getServiceById: (productId: string) => `/service/${productId}/single`,
