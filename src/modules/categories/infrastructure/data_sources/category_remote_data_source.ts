@@ -59,6 +59,15 @@ export class CategoryRemoteDataSource {
     return response.data;
   }
 
+  async getRealEstateCategoryAttributes(
+    categoryId: string,
+  ): Promise<CategoryAttribute[]> {
+    const response = await this.httpClient.get<CategoryAttribute[]>(
+      endpoints.realEstates.getAttributesByCategory(categoryId),
+    );
+    return response.data;
+  }
+
   async getProductCategoryTree(): Promise<CategoryTree[]> {
     const response = await this.httpClient.get<CategoryTreeResponse[]>(
       endpoints.products.getCategoryTree,
@@ -72,6 +81,13 @@ export class CategoryRemoteDataSource {
       endpoints.services.getCategoryTree,
     );
 
+    return response.data.map(fromJsonToTree);
+  }
+
+  async getRealEstateCategoryTree(): Promise<CategoryTree[]> {
+    const response = await this.httpClient.get<CategoryTreeResponse[]>(
+      endpoints.realEstates.getCategoryTree,
+    );
     return response.data.map(fromJsonToTree);
   }
 
@@ -97,6 +113,17 @@ export class CategoryRemoteDataSource {
     return response.data;
   }
 
+  async createRealEstateCategory(
+    params: CreateCategoryParams,
+  ): Promise<Category> {
+    if (!params.parentCategoryId) delete params.parentCategoryId;
+    const response = await this.httpClient.post<Category>(
+      endpoints.realEstates.createCategory,
+      params,
+    );
+    return response.data;
+  }
+
   async updateProductCategory(
     id: string,
     params: UpdateCategoryParams,
@@ -118,6 +145,17 @@ export class CategoryRemoteDataSource {
       { name: params.name },
     );
 
+    return response.data;
+  }
+
+  async updateRealEstateCategory(
+    id: string,
+    params: UpdateCategoryParams,
+  ): Promise<Category> {
+    const response = await this.httpClient.patch<Category>(
+      endpoints.realEstates.updateCategory(id),
+      { name: params.name },
+    );
     return response.data;
   }
 
@@ -151,6 +189,20 @@ export class CategoryRemoteDataSource {
     return response.data;
   }
 
+  async createRealEstateAttribute(
+    categoryId: string,
+    createAttributeParams: CreateAttributeParams[],
+  ): Promise<CategoryAttribute> {
+    const response = await this.httpClient.post<CategoryAttribute>(
+      endpoints.realEstates.createAttribute,
+      {
+        categoryId,
+        attributes: createAttributeParams,
+      },
+    );
+    return response.data;
+  }
+
   async updateProductAttribute(
     id: string,
     params: UpdateAttributeParams,
@@ -176,6 +228,19 @@ export class CategoryRemoteDataSource {
       },
     );
 
+    return response.data;
+  }
+
+  async updateRealEstateAttribute(
+    id: string,
+    params: UpdateAttributeParams,
+  ): Promise<CategoryAttribute> {
+    const response = await this.httpClient.patch<CategoryAttribute>(
+      endpoints.realEstates.updateAttribute(id),
+      {
+        name: params.name,
+      },
+    );
     return response.data;
   }
 }
