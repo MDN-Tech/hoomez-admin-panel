@@ -34,13 +34,13 @@ export function AddAttributeDialog({
   categoryId,
   trigger,
 }: AddAttributeDialogProps) {
-  const { isService, categoryLabel } = useCategoryContext();
+  const { moduleType, categoryLabel } = useCategoryContext();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [dataType, setDataType] = useState<AttributeDataType>("string");
 
   const { mutate: createAttributes, isPending } = useCreateAttributes({
-    isService,
+    moduleType,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -87,8 +87,12 @@ export function AddAttributeDialog({
             <DialogDescription>
               Create a new attribute for this {categoryLabel.toLowerCase()}.
               Attributes define the properties that{" "}
-              {isService ? "services" : "products"} in this{" "}
-              {categoryLabel.toLowerCase()} can have.
+              {moduleType === "service"
+                ? "services"
+                : moduleType === "real-estate"
+                  ? "listings"
+                  : "products"}{" "}
+              in this {categoryLabel.toLowerCase()} can have.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -97,9 +101,11 @@ export function AddAttributeDialog({
               <Input
                 id="name"
                 placeholder={
-                  isService
+                  moduleType === "service"
                     ? "e.g., Duration, Experience, Tools Required"
-                    : "e.g., Color, Size, Material"
+                    : moduleType === "real-estate"
+                      ? "e.g., Bedrooms, Bathrooms, Area"
+                      : "e.g., Color, Size, Material"
                 }
                 value={name}
                 onChange={(e) => setName(e.target.value)}

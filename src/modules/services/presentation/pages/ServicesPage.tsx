@@ -64,7 +64,7 @@ export default function ServicesPage() {
   );
 
   const { data: services, isLoading } = useGetServices(queryParams);
-  const { data: categoryTrees } = useGetCategories({ isService: true });
+  const { data: categoryTrees } = useGetCategories({ moduleType: "service" });
 
   const handlePageChange = (newPage: number) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
