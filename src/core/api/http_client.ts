@@ -108,6 +108,7 @@ export class HttpClient {
             return this.instance(originalRequest);
           } catch (error) {
             this.processQueue(error, null);
+            window.location.href = "/"; // Redirect to login or home page
             return Promise.reject(error);
           } finally {
             this.isRefreshing = false;
