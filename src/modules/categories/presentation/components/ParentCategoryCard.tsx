@@ -21,12 +21,12 @@ interface ParentCategoryCardProps {
 }
 
 export function ParentCategoryCard({ categoryTree }: ParentCategoryCardProps) {
-  const { isService, subcategoryLabel } = useCategoryContext();
+  const { moduleType, subcategoryLabel } = useCategoryContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
 
   const { mutate: updateCategory, isPending: isUpdating } = useUpdateCategory({
-    isService,
+    moduleType,
   });
 
   const handleUpdateCategoryName = (newName: string) => {

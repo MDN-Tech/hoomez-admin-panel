@@ -12,6 +12,6 @@ export interface CategoryTreeResponse {
 export function fromJsonToTree(data: CategoryTreeResponse): CategoryTree {
   return {
     parentCategory: { id: data.id, name: data.name },
-    children: data.children,
+    children: data.children || [],
   };
 }

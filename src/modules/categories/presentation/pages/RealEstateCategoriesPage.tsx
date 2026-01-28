@@ -1,12 +1,12 @@
 import CategoriesPageInner from "../components/CategoriesPageInner";
 import { CategoryProvider } from "../contexts/CategoryProvider";
 
-function ServiceCategoriesPage() {
+function RealEstateCategoriesPage() {
   return (
     <CategoryProvider
       categoryType={{
-        moduleType: "service",
-        moduleName: "Service Categories",
+        moduleType: "real-estate",
+        moduleName: "Real Estate Categories",
         categoryLabel: "Category",
         subcategoryLabel: "Subcategory",
       }}
@@ -16,4 +16,4 @@ function ServiceCategoriesPage() {
   );
 }
 
-export default ServiceCategoriesPage;
+export default RealEstateCategoriesPage;

@@ -26,12 +26,12 @@ export function AddCategoryDialog({
   parentCategoryId,
   trigger,
 }: AddCategoryDialogProps) {
-  const { isService, categoryLabel, subcategoryLabel } = useCategoryContext();
+  const { moduleType, categoryLabel, subcategoryLabel } = useCategoryContext();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
 
   const { mutate: createCategory, isPending } = useCreateCategory({
-    isService,
+    moduleType,
   });
 
   const isParentCategory = !parentCategoryId;
@@ -82,7 +82,7 @@ export function AddCategoryDialog({
             <DialogTitle>Add {itemType}</DialogTitle>
             <DialogDescription>
               {isParentCategory
-                ? `Create a new ${categoryLabel.toLowerCase()} to organize your ${isService ? "services" : "products"}.`
+                ? `Create a new ${categoryLabel.toLowerCase()} to organize your ${moduleType === "service" ? "services" : moduleType === "real-estate" ? "listings" : "products"}.`
                 : `Create a new ${subcategoryLabel.toLowerCase()} under this ${categoryLabel.toLowerCase()}.`}
             </DialogDescription>
           </DialogHeader>
@@ -93,12 +93,16 @@ export function AddCategoryDialog({
                 id="name"
                 placeholder={
                   isParentCategory
-                    ? isService
+                    ? moduleType === "service"
                       ? "e.g., Household, Maintenance, Personal Care"
-                      : "e.g., Electronics, Clothing, Furniture"
-                    : isService
+                      : moduleType === "real-estate"
+                        ? "e.g., Residential, Commercial, Land"
+                        : "e.g., Electronics, Clothing, Furniture"
+                    : moduleType === "service"
                       ? "e.g., Cleaning, Repair, Cooking"
-                      : "e.g., Laptops, Smartphones, Tablets"
+                      : moduleType === "real-estate"
+                        ? "e.g., Apartments, Villas, Offices"
+                        : "e.g., Laptops, Smartphones, Tablets"
                 }
                 value={name}
                 onChange={(e) => setName(e.target.value)}

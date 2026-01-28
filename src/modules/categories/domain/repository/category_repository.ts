@@ -34,6 +34,10 @@ export class CategoryRepository {
     return await this.remoteDataSource.getServiceCategoryTree();
   }
 
+  async getRealEstateCategoryTree(): Promise<CategoryTree[]> {
+    return await this.remoteDataSource.getRealEstateCategoryTree();
+  }
+
   async getProductCategoryAttributes(
     categoryId: string,
   ): Promise<CategoryAttribute[]> {
@@ -46,12 +50,26 @@ export class CategoryRepository {
     return await this.remoteDataSource.getServiceCategoryAttributes(categoryId);
   }
 
+  async getRealEstateCategoryAttributes(
+    categoryId: string,
+  ): Promise<CategoryAttribute[]> {
+    return await this.remoteDataSource.getRealEstateCategoryAttributes(
+      categoryId,
+    );
+  }
+
   async createProductCategory(params: CreateCategoryParams): Promise<Category> {
     return await this.remoteDataSource.createProductCategory(params);
   }
 
   async createServiceCategory(params: CreateCategoryParams): Promise<Category> {
     return await this.remoteDataSource.createServiceCategory(params);
+  }
+
+  async createRealEstateCategory(
+    params: CreateCategoryParams,
+  ): Promise<Category> {
+    return await this.remoteDataSource.createRealEstateCategory(params);
   }
 
   async updateProductCategory(
@@ -66,6 +84,13 @@ export class CategoryRepository {
     params: UpdateCategoryParams,
   ): Promise<Category> {
     return await this.remoteDataSource.updateServiceCategory(id, params);
+  }
+
+  async updateRealEstateCategory(
+    id: string,
+    params: UpdateCategoryParams,
+  ): Promise<Category> {
+    return await this.remoteDataSource.updateRealEstateCategory(id, params);
   }
 
   async createProductAttribute(
@@ -88,6 +113,16 @@ export class CategoryRepository {
     );
   }
 
+  async createRealEstateAttribute(
+    categoryId: string,
+    createAttributeParams: CreateAttributeParams[],
+  ): Promise<CategoryAttribute> {
+    return await this.remoteDataSource.createRealEstateAttribute(
+      categoryId,
+      createAttributeParams,
+    );
+  }
+
   async updateProductAttribute(
     id: string,
     params: UpdateAttributeParams,
@@ -100,5 +135,12 @@ export class CategoryRepository {
     params: UpdateAttributeParams,
   ): Promise<CategoryAttribute> {
     return await this.remoteDataSource.updateServiceAttribute(id, params);
+  }
+
+  async updateRealEstateAttribute(
+    id: string,
+    params: UpdateAttributeParams,
+  ): Promise<CategoryAttribute> {
+    return await this.remoteDataSource.updateRealEstateAttribute(id, params);
   }
 }
