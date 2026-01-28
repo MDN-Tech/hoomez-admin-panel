@@ -16,6 +16,8 @@ import { PromotionRemoteDataSource } from "@/modules/promotions/infrastructure/d
 import { PromotionRepository } from "@/modules/promotions/domain/repository/promotion_repository";
 import { UserRemoteDataSource } from "@/modules/users/infrastructure/data_sources/user_remote_data_source";
 import { UserRepository } from "@/modules/users/domain/repository/user_repository";
+import { RealEstateRemoteDataSource } from "@/modules/real-estate/infrastructure/data_sources/real_estate_remote_data_source";
+import { RealEstateRepository } from "@/modules/real-estate/domain/repository/product_repository";
 
 // Initialize core dependencies
 const tokenStorageService = new TokenStorageService();
@@ -55,6 +57,12 @@ const promotionRepository = new PromotionRepository(promotionRemoteDataSource);
 const userRemoteDataSource = new UserRemoteDataSource(httpClient);
 const userRepository = new UserRepository(userRemoteDataSource);
 
+// Initialize real estate dependencies
+const realEstateRemoteDataSource = new RealEstateRemoteDataSource(httpClient);
+const realEstateRepository = new RealEstateRepository(
+  realEstateRemoteDataSource,
+);
+
 // Initialize repositories
 export const repositories = {
   authRepository,
@@ -64,6 +72,7 @@ export const repositories = {
   serviceRepository,
   promotionRepository,
   userRepository,
+  realEstateRepository,
 };
 
 type Repositories = typeof repositories;
