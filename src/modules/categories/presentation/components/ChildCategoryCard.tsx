@@ -67,14 +67,14 @@ const getDataTypeColor = (dataType: AttributeDataType) => {
 };
 
 export function ChildCategoryCard({ category }: ChildCategoryCardProps) {
-  const { isService } = useCategoryContext();
+  const { moduleType } = useCategoryContext();
   const [isEditMode, setIsEditMode] = useState(false);
   const { data: attributes, isLoading: isLoadingAttributes } =
-    useGetAttributesByCategory({ isService, categoryId: category.id });
+    useGetAttributesByCategory({ moduleType, categoryId: category.id });
   const { mutate: updateCategory, isPending: isUpdatingCategory } =
-    useUpdateCategory({ isService });
+    useUpdateCategory({ moduleType });
   const { mutate: updateAttribute, isPending: isUpdatingAttribute } =
-    useUpdateAttribute({ isService });
+    useUpdateAttribute({ moduleType });
 
   const handleUpdateCategoryName = (newName: string) => {
     updateCategory(

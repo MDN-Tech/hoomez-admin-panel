@@ -64,7 +64,7 @@ export default function ProductsPage() {
   );
 
   const { data: products, isLoading } = useGetProducts(queryParams);
-  const { data: categoryTrees } = useGetCategories({ isService: false });
+  const { data: categoryTrees } = useGetCategories({ moduleType: "product" });
 
   const handlePageChange = (newPage: number) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
