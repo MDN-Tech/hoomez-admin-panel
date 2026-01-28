@@ -10,6 +10,7 @@ import {
   LogOut,
   Megaphone,
   Users,
+  Home,
 } from "lucide-react";
 
 import {
@@ -55,6 +56,11 @@ const data = {
       icon: Wrench,
     },
     {
+      title: "Real Estates",
+      url: "/real-estates",
+      icon: Home,
+    },
+    {
       title: "Categories",
       url: "#",
       icon: Tags,
@@ -66,6 +72,10 @@ const data = {
         {
           title: "Service Categories",
           url: "/categories/services",
+        },
+        {
+          title: "Real Estate Categories",
+          url: "/categories/real-estates",
         },
       ],
     },
