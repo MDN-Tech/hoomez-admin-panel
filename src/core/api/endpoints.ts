@@ -63,4 +63,20 @@ export const endpoints = {
     activateUser: (userId: string) => `/user/${userId}/activate`,
     deactivateUser: (userId: string) => `/user/${userId}/deactivate`,
   },
+  realEstates: {
+    getCategoryTree: "/real-estate/categories/tree",
+    createCategory: "/real-estate/category/create",
+    updateCategory: (categoryId: string) =>
+      `/product/categories/${categoryId}/update`,
+
+    getAttributesByCategory: (categoryId: string) =>
+      `/real-estate/category/${categoryId}/attributes`,
+    createAttribute: "/real-estate/category/attributes",
+    updateAttribute: (attributeId: string) =>
+      `/product/attributes/${attributeId}/update`,
+
+    getRealEstates: "/real-estate/filtered",
+    getRealEstateById: (realEstateId: string) =>
+      `/real-estate/${realEstateId}/single`,
+  },
 };
