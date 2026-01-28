@@ -19,3 +19,11 @@ export interface CategoryAttribute {
 export function toJson(category: Category) {
   return { id: category.id, name: category.name };
 }
+
+export const CATEGORY_MODULE_TYPES = {
+  PRODUCT: "product",
+  SERVICE: "service",
+  REAL_ESTATE: "real-estate",
+} as const;
+export type CategoryModuleType =
+  (typeof CATEGORY_MODULE_TYPES)[keyof typeof CATEGORY_MODULE_TYPES];
