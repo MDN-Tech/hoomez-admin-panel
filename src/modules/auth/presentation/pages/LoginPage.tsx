@@ -17,6 +17,7 @@ export default function LoginPage() {
     password: "",
   });
 
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -42,15 +43,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
-      <div className="flex flex-col items-center justify-center px-8 py-12 lg:px-12">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-8 sm:w-100">
+    <div className="lg:grid lg:grid-cols-2 w-full lg:min-h-screen">
+      <div className="flex flex-col justify-center items-center px-8 lg:px-12 py-12">
+        <div className="flex flex-col justify-center space-y-8 mx-auto w-full sm:w-100">
           {/* Logo & Header */}
           <div className="flex flex-col items-center space-y-3 text-center">
-            <div className="bg-primary text-primary-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-lg">
-              <Command className="h-6 w-6" />
+            <div className="flex justify-center items-center bg-primary shadow-lg rounded-xl w-12 h-12 text-primary-foreground">
+              <Command className="w-6 h-6" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
+            <h1 className="font-bold text-3xl tracking-tight">Welcome back</h1>
             <p className="text-muted-foreground text-sm">
               Enter your credentials to access your account
             </p>
@@ -62,17 +63,17 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed"
                 >
                   Email
                 </label>
                 <div className="relative">
-                  <User className="text-muted-foreground absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2" />
+                  <User className="top-1/2 left-3 absolute w-5 h-5 text-muted-foreground -translate-y-1/2" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="Enter your email"
-                    className="bg-muted/30 focus:bg-background h-11 pl-10 transition-colors"
+                    className="bg-muted/30 focus:bg-background pl-10 h-11 transition-colors"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
@@ -85,28 +86,28 @@ export default function LoginPage() {
 
               {/* Password Field */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex justify-between items-center">
                   <label
                     htmlFor="password"
-                    className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed"
                   >
                     Password
                   </label>
                   <a
                     href="#"
-                    className="text-primary hover:text-primary/80 text-sm font-medium hover:underline"
+                    className="font-medium text-primary hover:text-primary/80 text-sm hover:underline"
                     onClick={(e) => e.preventDefault()}
                   >
                     Forgot password?
                   </a>
                 </div>
                 <div className="relative">
-                  <Lock className="text-muted-foreground absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2" />
+                  <Lock className="top-1/2 left-3 absolute w-5 h-5 text-muted-foreground -translate-y-1/2" />
                   <Input
                     id="password"
                     type="password"
                     placeholder="••••••••"
-                    className="bg-muted/30 focus:bg-background h-11 pl-10 transition-colors"
+                    className="bg-muted/30 focus:bg-background pl-10 h-11 transition-colors"
                     value={formData.password}
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
@@ -119,18 +120,18 @@ export default function LoginPage() {
             </div>
 
             <Button
-              className="h-11 w-full text-base shadow-md transition-all hover:shadow-lg"
+              className="shadow-md hover:shadow-lg w-full h-11 text-base transition-all"
               type="submit"
               disabled={isPending}
             >
-              {isPending && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+              {isPending && <Loader2 className="mr-2 w-5 h-5 animate-spin" />}
               {isPending ? "Signing in..." : "Sign In"}
             </Button>
           </form>
 
-          <p className="text-muted-foreground px-8 text-center text-sm">
+          <p className="px-8 text-muted-foreground text-sm text-center">
             Don&apos;t have an account?{" "}
-            <span className="text-primary hover:text-primary/90 cursor-pointer font-medium underline transition-colors">
+            <span className="font-medium text-primary hover:text-primary/90 underline transition-colors cursor-pointer">
               Contact Support
             </span>
           </p>
@@ -138,21 +139,21 @@ export default function LoginPage() {
       </div>
 
       {/* Visual Side */}
-      <div className="relative hidden overflow-hidden bg-zinc-900 lg:flex lg:flex-col lg:items-center lg:justify-center">
-        <div className="absolute inset-0 z-10 bg-zinc-900/20" />
+      <div className="hidden relative lg:flex lg:flex-col lg:justify-center lg:items-center bg-zinc-900 overflow-hidden">
+        <div className="z-10 absolute inset-0 bg-zinc-900/20" />
         <img
           src="https://images.unsplash.com/photo-1605152276897-4f618f831968?q=80&w=2370&auto=format&fit=crop"
           alt="Modern Architecture"
-          className="h-full w-full object-cover transition-transform duration-700 hover:scale-105 dark:opacity-80"
+          className="dark:opacity-80 w-full h-full object-cover hover:scale-105 transition-transform duration-700"
           loading="lazy"
         />
-        <div className="absolute right-10 bottom-10 left-10 z-20 hidden rounded-2xl border border-white/10 bg-black/10 p-6 text-white backdrop-blur-md xl:block">
+        <div className="hidden xl:block right-10 bottom-10 left-10 z-20 absolute bg-black/10 backdrop-blur-md p-6 border border-white/10 rounded-2xl text-white">
           <blockquote className="space-y-2">
-            <p className="text-lg leading-relaxed font-medium">
+            <p className="font-medium text-lg leading-relaxed">
               &ldquo;This admin panel has revolutionized how we manage our
               properties. The workflow is seamless and intuitive.&rdquo;
             </p>
-            <footer className="text-sm text-white/80">
+            <footer className="text-white/80 text-sm">
               — Sofia Davis, Property Manager
             </footer>
           </blockquote>
