@@ -17,7 +17,7 @@ import { PromotionRepository } from "@/modules/promotions/domain/repository/prom
 import { UserRemoteDataSource } from "@/modules/users/infrastructure/data_sources/user_remote_data_source";
 import { UserRepository } from "@/modules/users/domain/repository/user_repository";
 import { RealEstateRemoteDataSource } from "@/modules/real-estate/infrastructure/data_sources/real_estate_remote_data_source";
-import { RealEstateRepository } from "@/modules/real-estate/domain/repository/product_repository";
+import { RealEstateRepository } from "@/modules/real-estate/domain/repository/real_estate_repository";
 
 // Initialize core dependencies
 const tokenStorageService = new TokenStorageService();
